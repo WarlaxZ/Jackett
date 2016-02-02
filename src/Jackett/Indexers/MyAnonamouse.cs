@@ -109,6 +109,7 @@ namespace Jackett.Indexers
                 CQ dom = results;
 
                 var rows = dom["tr"];
+                var thrownException = null;
                 foreach (var row in rows.Skip(1))
                 {
                     var qRow = row.Cq();
@@ -127,16 +128,20 @@ namespace Jackett.Indexers
                     }
 
                     release.Description = release.Title;
-                    release.Guid = new Uri(SiteLink.TrimEnd('/') + qTitleLink.Attr("href"));
+                    try {
+                        release.Guid = new Uri(SiteLink.TrimEnd('/') + qTitleLink.Attr("href"));
+                        release.MagnetUri = new Uri(SiteLink.TrimEnd('/') + mLink.Attr("href"));
+                    } catch (Exception ex) {
+                        thrownException = ex;
+                        continue;
+                    }
                     release.Comments = release.Guid;
 
                     var dateString = qRow.Find("td:eq(5)").Text().Split('[')[0];
                     release.PublishDate = DateTime.ParseExact(dateString, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
 
                     //var qLink = qRow.Find("td:eq(2) a");
-                    //release.Link = new Uri(qLink.Attr("href"));
-
-                    release.MagnetUri = new Uri(SiteLink.TrimEnd('/') + mLink.Attr("href"));
+                    //release.Link = new Uri(SiteLink.TrimEnd('/') + qLink.Attr("href"));
 
                     var sizeStr = qRow.Find("td:eq(4)").After("br").Text().TrimStart('[').TrimEnd(']').Trim();
                     release.Size = ReleaseInfo.GetBytes(sizeStr);
@@ -155,6 +160,9 @@ namespace Jackett.Indexers
 
                     release.Category = MapTrackerCatToNewznab(rCat);
                     releases.Add(release);
+                }
+                if (releases.Length == 0 an ex != null) {
+                    throw ex;
                 }
             }
             catch (Exception ex)
