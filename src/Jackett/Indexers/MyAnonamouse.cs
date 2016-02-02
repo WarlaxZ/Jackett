@@ -109,7 +109,7 @@ namespace Jackett.Indexers
                 CQ dom = results;
 
                 var rows = dom["tr"];
-                var thrownException = null;
+                Exception thrownException = null;
                 foreach (var row in rows.Skip(1))
                 {
                     var qRow = row.Cq();
@@ -161,8 +161,8 @@ namespace Jackett.Indexers
                     release.Category = MapTrackerCatToNewznab(rCat);
                     releases.Add(release);
                 }
-                if (releases.Length == 0 an ex != null) {
-                    throw ex;
+                if (releases.Count == 0 && thrownException != null) {
+                    throw thrownException;
                 }
             }
             catch (Exception ex)
