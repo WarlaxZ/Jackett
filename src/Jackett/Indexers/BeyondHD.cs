@@ -30,7 +30,7 @@ namespace Jackett.Indexers
         public BeyondHD(IIndexerManagerService i, Logger l, IWebClient w, IProtectionService ps)
             : base(name: "BeyondHD",
                 description: "Without BeyondHD, your HDTV is just a TV",
-                link: "https://beyondhd.me/",
+                link: "https://beyond-hd.me/",
                 caps: new TorznabCapabilities(),
                 manager: i,
                 client: w,
@@ -79,7 +79,7 @@ namespace Jackett.Indexers
         public override async Task<ConfigurationData> GetConfigurationForSetup()
         {
             var loginPage = await RequestStringWithCookies(LoginUrl, string.Empty);
-            string recaptchaSiteKey = new Regex(@"loginwidget', \{[\s]{4,30}'sitekey' : '([0-9A-Za-z]{5,60})',[\s]{4,30}'theme'").Match(loginPage.Content).Groups[1].ToString().Trim();
+            string recaptchaSiteKey = new Regex(@"loginwidget', \{[\s]{4,30}'sitekey' : '([0-9A-Za-z-]{5,60})',[\s]{4,30}'theme'").Match(loginPage.Content).Groups[1].ToString().Trim();
             var result = new ConfigurationDataRecaptchaLogin();
             result.CookieHeader.Value = loginPage.Cookies;
             result.Captcha.SiteKey = recaptchaSiteKey;

@@ -12,6 +12,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using Jackett.Models.IndexerConfig;
@@ -20,11 +21,10 @@ using System.Globalization;
 
 namespace Jackett.Indexers
 {
-    public class MyAnonamouse : BaseIndexer, IIndexer
+    public class Myanonamouse : BaseIndexer, IIndexer
     {
         private string LoginUrl { get { return SiteLink + "takelogin.php"; } }
-        private string SearchUrl { get { return SiteLink + "tor/js/loadSearch.php"; } }
-        private string SearchUrlReferer { get { return SiteLink + "tor/browse.php"; } }
+        private string SearchUrl { get { return SiteLink + "tor/js/loadSearch2.php"; } }
 
         new ConfigurationDataBasicLogin configData
         {
@@ -32,20 +32,99 @@ namespace Jackett.Indexers
             set { base.configData = value; }
         }
 
-        public MyAnonamouse(IIndexerManagerService i, HttpWebClient c, Logger l, IProtectionService ps)
-            : base(name: "MyAnonamouse",
-                description: "Friendliness, Warmth and Sharing (eBooks & Audio Books)",
-                link: "http://www.myanonamouse.net/",
-                caps: new TorznabCapabilities(),
+        public Myanonamouse(IIndexerManagerService i, IWebClient c, Logger l, IProtectionService ps)
+            : base(name: "Myanonamouse",
+                description: "Friendliness, Warmth and Sharing",
+                link: "https://www.myanonamouse.net/",
+                caps: new TorznabCapabilities(TorznabCatType.Books,
+                                              TorznabCatType.AudioAudiobook,
+                                              TorznabCatType.BooksComics,
+                                              TorznabCatType.BooksEbook,
+                                              TorznabCatType.BooksMagazines,
+                                              TorznabCatType.BooksTechnical),
                 manager: i,
-                client: c, // Forced HTTP client for custom headers
+                client: c,
                 logger: l,
                 p: ps,
                 configData: new ConfigurationDataBasicLogin())
         {
-            //AddCategoryMapping("ALL", TorznabCatType.AllCats);
-            AddCategoryMapping(13, TorznabCatType.AudioAudiobook);
-            AddCategoryMapping(14, TorznabCatType.BooksEbook);
+            AddCategoryMapping("61", TorznabCatType.BooksComics);
+            AddCategoryMapping("91", TorznabCatType.BooksTechnical);
+            AddCategoryMapping("80", TorznabCatType.BooksTechnical);
+            AddCategoryMapping("79", TorznabCatType.BooksMagazines);
+            AddCategoryMapping("39", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("49", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("50", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("83", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("51", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("97", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("40", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("41", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("106", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("42", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("52", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("98", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("54", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("55", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("43", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("99", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("84", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("44", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("56", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("137", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("45", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("57", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("85", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("87", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("119", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("88", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("58", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("59", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("46", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("47", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("53", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("89", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("100", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("108", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("48", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("111", TorznabCatType.AudioAudiobook);
+            AddCategoryMapping("60", TorznabCatType.BooksEbook);
+            AddCategoryMapping("71", TorznabCatType.BooksEbook);
+            AddCategoryMapping("72", TorznabCatType.BooksEbook);
+            AddCategoryMapping("90", TorznabCatType.BooksEbook);
+            AddCategoryMapping("73", TorznabCatType.BooksEbook);
+            AddCategoryMapping("101", TorznabCatType.BooksEbook);
+            AddCategoryMapping("62", TorznabCatType.BooksEbook);
+            AddCategoryMapping("63", TorznabCatType.BooksEbook);
+            AddCategoryMapping("107", TorznabCatType.BooksEbook);
+            AddCategoryMapping("64", TorznabCatType.BooksEbook);
+            AddCategoryMapping("74", TorznabCatType.BooksEbook);
+            AddCategoryMapping("102", TorznabCatType.BooksEbook);
+            AddCategoryMapping("76", TorznabCatType.BooksEbook);
+            AddCategoryMapping("77", TorznabCatType.BooksEbook);
+            AddCategoryMapping("65", TorznabCatType.BooksEbook);
+            AddCategoryMapping("103", TorznabCatType.BooksEbook);
+            AddCategoryMapping("115", TorznabCatType.BooksEbook);
+            AddCategoryMapping("66", TorznabCatType.BooksEbook);
+            AddCategoryMapping("78", TorznabCatType.BooksEbook);
+            AddCategoryMapping("138", TorznabCatType.BooksEbook);
+            AddCategoryMapping("67", TorznabCatType.BooksEbook);
+            AddCategoryMapping("92", TorznabCatType.BooksEbook);
+            AddCategoryMapping("118", TorznabCatType.BooksEbook);
+            AddCategoryMapping("94", TorznabCatType.BooksEbook);
+            AddCategoryMapping("120", TorznabCatType.BooksEbook);
+            AddCategoryMapping("95", TorznabCatType.BooksEbook);
+            AddCategoryMapping("81", TorznabCatType.BooksEbook);
+            AddCategoryMapping("82", TorznabCatType.BooksEbook);
+            AddCategoryMapping("68", TorznabCatType.BooksEbook);
+            AddCategoryMapping("69", TorznabCatType.BooksEbook);
+            AddCategoryMapping("75", TorznabCatType.BooksEbook);
+            AddCategoryMapping("96", TorznabCatType.BooksEbook);
+            AddCategoryMapping("104", TorznabCatType.BooksEbook);
+            AddCategoryMapping("109", TorznabCatType.BooksEbook);
+            AddCategoryMapping("70", TorznabCatType.BooksEbook);
+            AddCategoryMapping("112", TorznabCatType.BooksEbook);
+
         }
 
         public async Task<IndexerConfigurationStatus> ApplyConfiguration(JToken configJson)
@@ -57,11 +136,13 @@ namespace Jackett.Indexers
                 { "returnto", "/" }
             };
 
-            var result = await RequestLoginAndFollowRedirect(LoginUrl, pairs, null, true, null, LoginUrl); //loginPage.Cookies
-            await ConfigureIfOK(result.Cookies, result.Content != null && result.Content.Contains("logout.php"), () =>
+            var preRequest = await RequestStringWithCookiesAndRetry(LoginUrl, string.Empty);
+
+            var result = await RequestLoginAndFollowRedirect(LoginUrl, pairs, preRequest.Cookies, true, SearchUrl, SiteLink);
+            await ConfigureIfOK(result.Cookies, result.Content != null && result.Content.Contains("Search Results"), () =>
             {
                 CQ dom = result.Content;
-                var errorMessage = dom["td.embedded"].Text().Trim();
+                var errorMessage = dom["table.main table td.text"].Text().Trim().Replace("\n\t", " ");
                 throw new ExceptionWithConfigData(errorMessage, configData);
             });
 
@@ -71,103 +152,88 @@ namespace Jackett.Indexers
         public async Task<IEnumerable<ReleaseInfo>> PerformQuery(TorznabQuery query)
         {
             var releases = new List<ReleaseInfo>();
-            var searchString = query.GetQueryString();
-            var searchUrl = SearchUrl;
-            var queryCollection = new NameValueCollection();
 
-            queryCollection.Add("total", "146"); // Not sure what this is about but its required!
+            NameValueCollection qParams = new NameValueCollection();
+            qParams.Add("tor[text]", query.GetQueryString());
+            qParams.Add("tor[srchIn][title]", "true");
+            qParams.Add("tor[srchIn][author]", "true");
+            qParams.Add("tor[searchType]", "all");
+            qParams.Add("tor[searchIn]", "torrents");
+            qParams.Add("tor[hash]", "");
+            qParams.Add("tor[sortType]", "default");
+            qParams.Add("tor[startNumber]", "0");
 
-            var cat = "0";
-            var queryCats = MapTorznabCapsToTrackers(query);
-            if (queryCats.Count == 1)
+            List<string> catList = MapTorznabCapsToTrackers(query);
+            if (catList.Any())
             {
-                cat = queryCats.First().ToString();
+                foreach (string cat in catList)
+                {
+                    qParams.Add("tor[cat][]", cat);
+                }
+            }
+            else
+            {
+                qParams.Add("tor[cat][]", "0");
             }
 
-            queryCollection.Add("tor[text]", searchString);
-            queryCollection.Add("tor[cat][]", "m" + cat);
-            queryCollection.Add("tor[srchIn]", "0");
-            queryCollection.Add("tor[fullTextType]", "native");
-            queryCollection.Add("tor[searchType]", "all");
-            queryCollection.Add("tor[searchIn]", "torrents");
-            queryCollection.Add("tor[browseFlags][]", "16");
-            queryCollection.Add("tor[sortType]", "default");
-            queryCollection.Add("tor[startNumber]", "0");
-
-            searchUrl += "?" + queryCollection.GetQueryString();
-
-            var extraHeaders = new Dictionary<string, string>()
+            string urlSearch = SearchUrl;
+            if (qParams.Count > 0)
             {
-                { "X-Requested-With", "XMLHttpRequest" }
-            };
+                urlSearch += $"?{qParams.GetQueryString()}";
+            }
 
-            var response = await RequestStringWithCookiesAndRetry(searchUrl, null, SearchUrlReferer, extraHeaders);
+            var response = await RequestStringWithCookiesAndRetry(urlSearch);
 
-            var results = response.Content;
             try
             {
-                CQ dom = results;
+                CQ dom = response.Content;
+                var rows = dom["table[class='newTorTable'] > tbody > tr"];
 
-                var rows = dom["tr"];
-                Exception thrownException = null;
-                foreach (var row in rows.Skip(1))
+                foreach (IDomObject row in rows)
                 {
-                    var qRow = row.Cq();
-                    var mLink = qRow.Find("td:eq(3) a:eq(0)");
-                    if (qRow.Find("th").Count() > 0 || mLink.Count() == 0) {
-                        continue;
-                    }
+                    CQ torrentData = row.OuterHTML;
+                    CQ cells = row.Cq().Find("td");
 
-                    var release = new ReleaseInfo();
-                    var qTitleLink = qRow.Find("td:eq(2) a").First();
-                    release.Title = qTitleLink.Text().Trim();
-                    // If we search an get no results, we still get a table just with no info.
-                    if (string.IsNullOrWhiteSpace(release.Title))
+                    if (cells.Any() && torrentData.Find("a[class='directDownload']").Any())
                     {
-                        break;
+                        string title = torrentData.Find("a[class='title']").First().Text().Trim();
+                        string author = torrentData.Find("a[class='author']").First().Text().Trim();
+                        Uri link = new Uri(SiteLink + torrentData.Find("a[class='directDownload']").First().Attr("href").Trim().TrimStart('/'));
+                        Uri guid = new Uri(SiteLink + torrentData.Find("a[class='directDownload']").First().Attr("href").Trim().TrimStart('/'));
+                        long size = ReleaseInfo.GetBytes(cells.Elements.ElementAt(4).Cq().Text().Split('[')[1].TrimEnd(']'));
+                        int seeders = ParseUtil.CoerceInt(cells.Elements.ElementAt(6).Cq().Find("p").ElementAt(0).Cq().Text());
+                        int leechers = ParseUtil.CoerceInt(cells.Elements.ElementAt(6).Cq().Find("p").ElementAt(1).Cq().Text());
+
+                        string pubDateStr = cells.Elements.ElementAt(5).Cq().Text().Split('[')[0];
+                        DateTime publishDate = DateTime.Parse(pubDateStr).ToLocalTime();
+
+                        long category = 0;
+                        string cat = torrentData.Find("a[class='newCatLink']").First().Attr("href").Remove(0, "/tor/browse.php?tor[cat][]]=".Length);
+                        long.TryParse(cat, out category);
+
+
+                        var release = new ReleaseInfo();
+
+                        release.Title = String.IsNullOrEmpty(author) ? title : String.Format("{0} by {1}", title, author);
+                        release.Guid = guid;
+                        release.Link = link;
+                        release.PublishDate = publishDate;
+                        release.Size = size;
+                        release.Description = release.Title;
+                        release.Seeders = seeders;
+                        release.Peers = seeders + leechers;
+                        release.MinimumRatio = 1;
+                        release.MinimumSeedTime = 172800;
+                        release.Category = MapTrackerCatToNewznab(category.ToString());
+                        release.Comments = guid;
+
+                        releases.Add(release);
                     }
-
-                    release.Description = release.Title;
-                    try {
-                        release.Guid = new Uri(SiteLink.TrimEnd('/') + qTitleLink.Attr("href"));
-                        release.MagnetUri = new Uri(SiteLink.TrimEnd('/') + mLink.Attr("href"));
-                    } catch (Exception ex) {
-                        thrownException = ex;
-                        continue;
-                    }
-                    release.Comments = release.Guid;
-
-                    var dateString = qRow.Find("td:eq(5)").Text().Split('[')[0];
-                    release.PublishDate = DateTime.ParseExact(dateString, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
-
-                    //var qLink = qRow.Find("td:eq(2) a");
-                    //release.Link = new Uri(SiteLink.TrimEnd('/') + qLink.Attr("href"));
-
-                    var sizeStr = qRow.Find("td:eq(4)").After("br").Text().TrimStart('[').TrimEnd(']').Trim();
-                    release.Size = ReleaseInfo.GetBytes(sizeStr);
-
-                    var connections = qRow.Find("td:eq(6) p"); //.Text().Trim().Split("/".ToCharArray(),StringSplitOptions.RemoveEmptyEntries);
-                    release.Seeders = ParseUtil.CoerceInt(connections[0].InnerText.Trim());
-                    release.Peers = ParseUtil.CoerceInt(connections[1].InnerText.Trim()) + release.Seeders;
-
-                    var rCat = row.Cq().Find("td:eq(0) a").First().Attr("href");
-                    var catString = "tor[cat][]]=";
-                    var rCatIdx = rCat.IndexOf(catString);
-                    if (rCatIdx > -1)
-                    {
-                        rCat = rCat.Substring(catString.Length + 4);
-                    }
-
-                    release.Category = MapTrackerCatToNewznab(rCat);
-                    releases.Add(release);
-                }
-                if (releases.Count == 0 && thrownException != null) {
-                    throw thrownException;
                 }
             }
             catch (Exception ex)
             {
-                OnParseError(results, ex);
+                OnParseError(response.Content, ex);
             }
 
             return releases;

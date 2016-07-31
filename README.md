@@ -56,8 +56,56 @@ We were previously focused on TV but are working on extending searches to allow 
  * [TorrentShack](http://torrentshack.me/)
  * [Torrentz](https://torrentz.eu/)
  * [TV Chaos UK](https://tvchaosuk.com/)
+#### Supported Private Trackers
+ * Abnormal
+ * AlphaRatio
+ * AnimeBytes
+ * Avistaz
+ * bB
+ * BeyondHD
+ * BIT-HDTV
+ * BitMeTV
+ * BitSoup
+ * BlueTigers
+ * BTN
+ * DanishBits
+ * Demonoid
+ * EuTorrents
+ * FileList
+ * French-ADN
+ * Freshon
+ * Fuzer
+ * HD-Space
+ * HD-Torrents
+ * Hebits
+ * Hounddawgs
+ * ILoveTorrents
+ * Immortalseed
+ * IPTorrents
+ * PassThePopcorn
+ * MoreThanTV
+ * MyAnonamouse
+ * NCore
+ * NextGen
+ * PhxBit
+ * Pretome
+ * PrivateHD
+ * RevolutionTT
+ * SceneAccess
+ * SceneFZ
+ * SceneTime
+ * Shazbat
+ * SpeedCD
+ * TehConnection
+ * TorrentBytes
+ * TorrentDay
+ * TorrentLeech
+ * TorrentShack
+ * TransmitheNet
+ * TV Chaos UK
  * World-In-HD
  * XSpeeds
+ * Xthor
 
 #### Installation on Windows
 
