@@ -50,8 +50,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AngleSharp, Version=0.9.4.42449, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
-      <HintPath>..\packages\AngleSharp.0.9.4\lib\net45\AngleSharp.dll</HintPath>
+    <Reference Include="AngleSharp, Version=0.9.5.41771, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
+      <HintPath>..\packages\AngleSharp.0.9.5\lib\net45\AngleSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -154,6 +154,11 @@
     <Compile Include="Controllers\TorznabController.cs" />
     <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Engine.cs" />
+    <Compile Include="Indexers\Hebits.cs" />
+    <Compile Include="Indexers\MyAnonamouse.cs" />
+    <Compile Include="Indexers\PassThePopcorn.cs" />
+    <Compile Include="Indexers\Xthor.cs" />
+    <Compile Include="Indexers\PhxBit.cs" />
     <Compile Include="Indexers\AlphaRatio.cs" />
     <Compile Include="Indexers\BitSoup.cs" />
     <Compile Include="Indexers\BlueTigers.cs" />
@@ -169,7 +174,9 @@
     <Compile Include="Indexers\BroadcastTheNet.cs" />
     <Compile Include="Indexers\DanishBits.cs" />
     <Compile Include="Indexers\Abnormal.cs" />
+    <Compile Include="Indexers\Fuzer.cs" />
     <Compile Include="Indexers\GFTracker.cs" />
+    <Compile Include="Indexers\ILoveTorrents.cs" />
     <Compile Include="Indexers\RevolutionTT.cs" />
     <Compile Include="Indexers\TehConnection.cs" />
     <Compile Include="Indexers\Hounddawgs.cs" />
@@ -183,17 +190,22 @@
     <Compile Include="Indexers\Abstract\AvistazTracker.cs" />
     <Compile Include="Indexers\AnimeTorrents.cs" />
     <Compile Include="Indexers\FrenchADN.cs" />
+    <Compile Include="Indexers\TransmitheNet.cs" />
     <Compile Include="Indexers\WiHD.cs" />
     <Compile Include="Indexers\XSpeeds.cs" />
     <Compile Include="Models\GitHub\Asset.cs" />
     <Compile Include="Models\GitHub\Release.cs" />
+    <Compile Include="Models\IndexerConfig\Bespoke\ConfigurationDataXthor.cs" />
+    <Compile Include="Models\IndexerConfig\Bespoke\ConfigurationDataPhxBit.cs" />
     <Compile Include="Models\IndexerConfig\Bespoke\ConfigurationDataBlueTigers.cs" />
     <Compile Include="Models\IndexerConfig\Bespoke\ConfigurationDataAbnormal.cs" />
     <Compile Include="Models\IndexerConfig\Bespoke\ConfigurationDataFrenchADN.cs" />
     <Compile Include="Models\IndexerConfig\Bespoke\ConfigurationDataWiHD.cs" />
+    <Compile Include="Models\IndexerConfig\ConfigurationDataBasicLoginWithFilterAndPasskey.cs" />
     <Compile Include="Models\IndexerConfig\ConfigurationDataBasicLoginWithFilter.cs" />
     <Compile Include="Models\IndexerConfig\ConfigurationDataAPIKey.cs" />
     <Compile Include="Models\IndexerConfig\ConfigurationDataBasicLoginWithRSSAndDisplay.cs" />
+    <Compile Include="Models\IndexerConfig\ConfigurationDataBasicLoginWithAlternateLink.cs" />
     <Compile Include="Models\ManualSearchResult.cs" />
     <Compile Include="Indexers\Rarbg.cs" />
     <Compile Include="Indexers\TVChaosUK.cs" />
@@ -204,6 +216,7 @@
     <Compile Include="Indexers\Pretome.cs" />
     <Compile Include="Indexers\PrivateHD.cs" />
     <Compile Include="Indexers\SceneAccess.cs" />
+    <Compile Include="Indexers\SceneFZ.cs" />
     <Compile Include="Indexers\SceneTime.cs" />
     <Compile Include="Indexers\ShowRSS.cs" />
     <Compile Include="Indexers\SpeedCD.cs" />
@@ -294,6 +307,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Models\TorznabQuery.cs" />
     <Compile Include="CurlHelper.cs" />
+    <Compile Include="Utils\StringCipher.cs" />
     <Compile Include="Utils\StringUtil.cs" />
     <Compile Include="Utils\TorznabCapsUtil.cs" />
     <Compile Include="Utils\Clients\UnixSafeCurlWebClient.cs" />
@@ -413,6 +427,15 @@
     <Content Include="Content\login.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\logos\myanonamouse.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\logos\xthor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\logos\phxbit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\logos\animebytes.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -452,6 +475,9 @@
     <Content Include="Content\logos\filelist.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\logos\fuzer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\logos\gftracker.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -459,6 +485,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\logos\hdtorrents.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\logos\ilovetorrents.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\logos\immortalseed.png">
@@ -486,6 +515,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\logos\sceneaccess.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\logos\scenefz.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\logos\scenetime.png">
@@ -575,6 +607,9 @@
     <Content Include="Content\logos\torrentz.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\logos\transmithenet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\logos\tvchaosuk.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -591,6 +626,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\setup_indexer.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\logos\hebits.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Models\TorznabCatType.tt">
